@@ -1,7 +1,7 @@
+import 'package:first_flutter_project/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 import 'core/theme/theme.dart';
-import 'features/auth/presentation/pages/signup_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,// remove debug banner top right corner
       title: 'Blog Demo',
       theme: AppTheme.darkThemeMode,
-      home: const SignupPage(),
+      home: const LoginPage(),
     );
   }
 }

@@ -1,10 +1,15 @@
 import 'package:first_flutter_project/core/theme/app_pallete.dart';
+import 'package:first_flutter_project/features/auth/presentation/pages/signup_page.dart';
 import 'package:first_flutter_project/features/auth/presentation/widgets/auth_field.dart';
 import 'package:first_flutter_project/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:flutter/material.dart';
 
 
 class LoginPage extends StatefulWidget {
+  static route() => MaterialPageRoute( // helps to navigate to this page and it is reusable
+    builder: (context) => const LoginPage(),
+  );
+
   const LoginPage({super.key});
 
   @override
@@ -50,19 +55,29 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20) ,//For spacing
 
-              const AuthGradientButton(),
+              const AuthGradientButton(buttonText: 'Sign In',),
               const SizedBox(height: 20) ,//For spacing
-              RichText(
-                  text: TextSpan(text: 'Don\'t have an account ?',
-                      style : Theme.of(context).textTheme.titleMedium,
-                      children: [
-                        TextSpan(
-                          text: 'Sign In',
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: AppPallete.gradient2,
-                          ),
-                        )
-                      ])
+              
+              //Text to navigate to signup page
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      SignupPage.route(),// Navigate to SignupPage and it is reusable
+                  );
+                },
+                child: RichText(
+                    text: TextSpan(text: 'Don\'t have an account ?',
+                        style : Theme.of(context).textTheme.titleMedium,
+                        children: [
+                          TextSpan(
+                            text: 'Sign Up',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              color: AppPallete.gradient2,
+                            ),
+                          )
+                        ])
+                ),
               ),
 
 
