@@ -4,24 +4,22 @@ import 'package:first_flutter_project/features/auth/presentation/widgets/auth_gr
 import 'package:flutter/material.dart';
 
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final nameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    nameController.dispose();
     super.dispose();
   }
 
@@ -36,41 +34,39 @@ class _SignupPageState extends State<SignupPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,//Center vertically
             children: [
-              const Text('Sign Up.',
+              const Text('Sign In.',
                 style: TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
-              ),),
-          
+                ),),
+
               const SizedBox(height: 30) ,//For spacing
-              AuthField(hintText: 'Name',controller: nameController),
-              const SizedBox(height: 15) ,//For spacing
               AuthField(hintText: 'Email',controller: emailController),
               const SizedBox(height: 15) ,//For spacing
               AuthField(
-                  hintText: 'Password',
-                  controller: passwordController,
-                  isObscureText: true,
+                hintText: 'Password',
+                controller: passwordController,
+                isObscureText: true,
               ),
               const SizedBox(height: 20) ,//For spacing
-          
+
               const AuthGradientButton(),
               const SizedBox(height: 20) ,//For spacing
               RichText(
-                  text: TextSpan(text: 'Already have an account ?',
-                  style : Theme.of(context).textTheme.titleMedium,
-                  children: [
-                    TextSpan(
-                      text: 'Sign In',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: AppPallete.gradient2,
-                      ),
-                    )
-                  ])
+                  text: TextSpan(text: 'Don\'t have an account ?',
+                      style : Theme.of(context).textTheme.titleMedium,
+                      children: [
+                        TextSpan(
+                          text: 'Sign In',
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: AppPallete.gradient2,
+                          ),
+                        )
+                      ])
               ),
-          
-          
-          
+
+
+
             ],
           ),
         ),
