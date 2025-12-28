@@ -55,7 +55,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20) ,//For spacing
 
-              const AuthGradientButton(buttonText: 'Sign In',),
+              AuthGradientButton(
+                buttonText: 'Sign In',
+                onPressed: (){
+
+                },
+              ),
               const SizedBox(height: 20) ,//For spacing
               
               //Text to navigate to signup page
