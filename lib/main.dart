@@ -15,6 +15,9 @@ void main() async{
       BlocProvider(
           create: (_) => servicesLocator<AppUserCubit>(),
       ),
+      BlocProvider(
+        create: (_) => servicesLocator<AuthBloc>(),
+      ),
     ],
     child: const MyApp(),
   ));
