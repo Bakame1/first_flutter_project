@@ -29,32 +29,32 @@ Future<void> initDependencies() async {
 //we just follow was we put in the main.dart
 void _initAuth(){
   // for AuthRemoteDataSourceImpl
-  servicesLocator.registerFactory<AuthRemoteDataSource>(
+  servicesLocator..registerFactory<AuthRemoteDataSource>(
           ()=> AuthRemoteDataSourceImpl(
             servicesLocator(),//brand new ressource every time
           ),
-  );
-  // for AuthRemoteDataSourceImpl
-  servicesLocator.registerFactory<AuthRepository>(
+  )
+  // repository
+  ..registerFactory<AuthRepository>(
       () => AuthRepositoryImpl(
         servicesLocator(),
       ),
-  );
+  )
 
-  //userSignUp
-  servicesLocator.registerFactory(
+  //Usecases
+  ..registerFactory(
         () => UserSignUp(
       servicesLocator(),
-    ),  );
+    ),  )
 
-  //userLogin
-  servicesLocator.registerFactory(
+
+  ..registerFactory(
         () => UserLogin(
       servicesLocator(),
-    ),  );
-
+    ),  )
+    //Bloc
   //AuthBloc with registerLazySingleton to have only one instance
-  servicesLocator.registerLazySingleton(
+  ..registerLazySingleton(
         () => AuthBloc(
           userSignUp: servicesLocator(),
           userLogin: servicesLocator(),
