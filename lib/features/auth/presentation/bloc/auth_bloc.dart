@@ -39,7 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthFailure(failure.message));
       },
           (user) {
-            print ('✅ EMAIL : UID: ${user.name}');
+            print ('✅ EMAIL : UID: ${user.email}');
             emit(AuthSuccess(user));
       },
     );

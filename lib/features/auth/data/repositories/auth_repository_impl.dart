@@ -19,8 +19,9 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, User>> currentUser() async{
     try{
       final user = await remoteDataSource.getCurrentUserData();
-      if (user==null) {
-        return right(user!);
+
+      if (user!=null) {
+        return right(user);
       } else {
         return left(Failure('User not logged in !'));
       }
