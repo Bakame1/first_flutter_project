@@ -6,7 +6,7 @@ import 'package:fpdart/src/either.dart';
 
 //string for the type of success response
 //UserSignUpParams : Because we had to pass multiple parameters to the usecase, we create a params class
-class UserSignUp implements Usecase<User,UserSignUpParams> {
+class UserSignUp implements UseCase<User,UserSignUpParams> {
   final AuthRepository authRepository;
   const UserSignUp(this.authRepository);
 

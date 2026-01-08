@@ -8,6 +8,7 @@ import 'package:first_flutter_project/features/auth/data/datasources/auth_remote
 import 'package:first_flutter_project/features/auth/domain/entities/user.dart';
 import 'package:first_flutter_project/features/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -38,7 +39,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
       return right(user);
 
-    } on ServerException catch (e){
+    } on sb.AuthException catch (e) {
+      return left(Failure(e.message));
+    }on ServerException catch (e){
       return left(Failure(e.message));
     }
   }

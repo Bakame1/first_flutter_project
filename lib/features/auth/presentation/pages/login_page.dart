@@ -1,8 +1,12 @@
+import 'package:first_flutter_project/core/common/widgets/loader.dart';
 import 'package:first_flutter_project/core/theme/app_pallete.dart';
+import 'package:first_flutter_project/core/utils/show_snackbar.dart';
+import 'package:first_flutter_project/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:first_flutter_project/features/auth/presentation/pages/signup_page.dart';
 import 'package:first_flutter_project/features/auth/presentation/widgets/auth_field.dart';
 import 'package:first_flutter_project/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -34,7 +38,18 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Form(
+        child: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthFailure){
+              // I want a snack bar to show the error message
+              showSnackBar(context, state.message);
+            }
+          },
+          builder: (context, state) {
+            if(state is AuthLoading){
+              return const Loader();
+            }
+            return Form(
           key: formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,//Center vertically
@@ -59,8 +74,17 @@ class _LoginPageState extends State<LoginPage> {
                 buttonText: 'Sign In',
                 onPressed: (){
 
+                  if (!formKey.currentState!.validate()) {
+                    context.read<AuthBloc>().add(
+                        AuthLogin(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        )
+                    );
+                  }
                 },
               ),
+
               const SizedBox(height: 20) ,//For spacing
               
               //Text to navigate to signup page
@@ -89,7 +113,9 @@ class _LoginPageState extends State<LoginPage> {
 
             ],
           ),
-        ),
+        );
+  },
+),
       ),
     );
   }
