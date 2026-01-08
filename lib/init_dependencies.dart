@@ -13,10 +13,13 @@ final servicesLocator = GetIt.instance;
 
 // Initialize dependencies here
 Future<void> initDependencies() async {
+  _initAuth();// help to init auth dependencies
+
   final supabase = await Supabase.initialize(
     url: AppSecrets.supabaseUrl,
     anonKey: AppSecrets.supabaseAnonKey,
   );
+
   //register lazy singleton means only one instance will be created and shared
   servicesLocator.registerLazySingleton(()=>supabase.client);//
   //.registerFactory = new instance every time
