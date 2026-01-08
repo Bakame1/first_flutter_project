@@ -1,5 +1,6 @@
 import 'package:first_flutter_project/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:first_flutter_project/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:first_flutter_project/features/auth/domain/usecases/current_user.dart';
 import 'package:first_flutter_project/features/auth/domain/usecases/user_login.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -52,14 +53,25 @@ void _initAuth(){
         () => UserLogin(
       servicesLocator(),
     ),  )
-    //Bloc
-  //AuthBloc with registerLazySingleton to have only one instance
-  ..registerLazySingleton(
-        () => AuthBloc(
-          userSignUp: servicesLocator(),
-          userLogin: servicesLocator(),
 
-    ),
-  );
+    ..registerFactory(
+            ()=> CurrentUser(
+                servicesLocator()
+            ),
+    )
+
+
+
+
+    //Bloc
+    //AuthBloc with registerLazySingleton to have only one instance
+    ..registerLazySingleton(
+          () => AuthBloc(
+            userSignUp: servicesLocator(),
+            userLogin: servicesLocator(),
+            currentUser: servicesLocator(),
+
+      ),
+    );
 }
 

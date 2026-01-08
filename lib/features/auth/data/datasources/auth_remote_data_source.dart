@@ -3,6 +3,8 @@ import 'package:first_flutter_project/features/auth/data/models/user_model.dart'
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthRemoteDataSource {
+  Session? get currentUserSession;
+
   Future<UserModel> signUpWithEmailAndPassword({
     required String name,
     required String email,
@@ -12,11 +14,17 @@ abstract interface class AuthRemoteDataSource {
     required String email,
     required String password,
   });
+  Future<UserModel?> getCurrentUserData();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final SupabaseClient supabaseClient;
   AuthRemoteDataSourceImpl(this.supabaseClient);
+
+  @override
+  // get current user session
+  Session? get currentUserSession => supabaseClient.auth.currentSession;
+
   @override
   Future<UserModel> loginWithEmailAndPassword({
     required String email,
@@ -56,6 +64,29 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       }
       return UserModel.fromJson(response.user!.toJson());
     }catch(e){
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<UserModel?> getCurrentUserData() async {
+    try {
+      if(currentUserSession != null){
+        // has to match the table name in supabase
+        // select because we want to get a specific data from the table not *
+        //user data is a list even if we have one user
+        //[{....},{...},...]
+        final userData = await supabaseClient.from('profiles').select().eq(
+            'id',
+            currentUserSession!.user.id
+        );
+      }
+      return null;
+
+
+
+
+    } catch (e) {
       throw ServerException(e.toString());
     }
   }

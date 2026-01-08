@@ -5,5 +5,6 @@ import 'package:fpdart/fpdart.dart';
 //Params because we dont know how many parameters we will need to pass to the usecase.
 abstract interface class UseCase<SuccessType, Params> {
   Future<Either<Failure,SuccessType>> call (Params params);
-
 }
+
+class NoParams {}
