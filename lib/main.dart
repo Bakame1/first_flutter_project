@@ -1,3 +1,4 @@
+import 'package:first_flutter_project/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:first_flutter_project/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:first_flutter_project/features/auth/presentation/pages/login_page.dart';
 import 'package:first_flutter_project/init_dependencies.dart';
@@ -12,7 +13,7 @@ void main() async{
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(
-          create: (_) => servicesLocator<AuthBloc>(),
+          create: (_) => servicesLocator<AppUserCubit>(),
       ),
     ],
     child: const MyApp(),
@@ -40,7 +41,21 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,// remove debug banner top right corner
       title: 'Blog Demo',
       theme: AppTheme.darkThemeMode,
-      home: const LoginPage(),
+      home: BlocSelector<AppUserCubit,AppUserState,bool>(
+          selector: (state){
+            return state is AppUserLoggedIn;
+          },
+          builder : (context,isLoggedIn){
+            if (isLoggedIn){
+              return const Scaffold(
+                body: Center(
+                  child: Text('User is logged in!'),
+                ),
+              );
+            }
+            return const LoginPage();
+          },
+      )
     );
   }
 }

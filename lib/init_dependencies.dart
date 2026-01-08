@@ -1,3 +1,4 @@
+import 'package:first_flutter_project/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:first_flutter_project/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:first_flutter_project/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:first_flutter_project/features/auth/domain/usecases/current_user.dart';
@@ -25,6 +26,9 @@ Future<void> initDependencies() async {
   //register lazy singleton means only one instance will be created and shared
   servicesLocator.registerLazySingleton(()=>supabase.client);//
   //.registerFactory = new instance every time
+
+  //core
+  servicesLocator.registerLazySingleton(()=>AppUserCubit());
 }
 
 //we just follow was we put in the main.dart
@@ -70,6 +74,7 @@ void _initAuth(){
             userSignUp: servicesLocator(),
             userLogin: servicesLocator(),
             currentUser: servicesLocator(),
+            appUserCubit: servicesLocator(),
 
       ),
     );

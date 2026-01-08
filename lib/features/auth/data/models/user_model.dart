@@ -1,6 +1,4 @@
-
-
-import 'package:first_flutter_project/features/auth/domain/entities/user.dart';
+import 'package:first_flutter_project/core/common/entities/user.dart';
 
 class UserModel extends User{
   UserModel({

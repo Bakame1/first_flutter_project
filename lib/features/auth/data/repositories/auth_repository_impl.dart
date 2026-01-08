@@ -1,11 +1,11 @@
 
 
-import 'dart:math';
 
+
+import 'package:first_flutter_project/core/common/entities/user.dart';
 import 'package:first_flutter_project/core/error/exceptions.dart';
 import 'package:first_flutter_project/core/error/failures.dart';
 import 'package:first_flutter_project/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:first_flutter_project/features/auth/domain/entities/user.dart';
 import 'package:first_flutter_project/features/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;

@@ -1,5 +1,9 @@
 
-part of 'auth_bloc.dart';
+
+
+import 'package:first_flutter_project/core/common/entities/user.dart';
+import 'package:flutter/cupertino.dart';
+
 
 @immutable
 sealed class AuthState {

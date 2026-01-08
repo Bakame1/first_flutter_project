@@ -2,6 +2,7 @@ import 'package:first_flutter_project/core/common/widgets/loader.dart';
 import 'package:first_flutter_project/core/theme/app_pallete.dart';
 import 'package:first_flutter_project/core/utils/show_snackbar.dart';
 import 'package:first_flutter_project/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:first_flutter_project/features/auth/presentation/bloc/auth_state.dart';
 import 'package:first_flutter_project/features/auth/presentation/pages/signup_page.dart';
 import 'package:first_flutter_project/features/auth/presentation/widgets/auth_field.dart';
 import 'package:first_flutter_project/features/auth/presentation/widgets/auth_gradient_button.dart';
