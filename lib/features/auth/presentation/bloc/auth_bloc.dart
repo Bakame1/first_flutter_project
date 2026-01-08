@@ -15,7 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<AuthSignUp>((event,emit) async{
       //print('🔵 BLOC : EVENT RECEIVED ! Email: ${event.email}');
-      emit(AuthLoading());
+      emit(AuthLoading());//we are loading state
 
       final res = await _userSignUp(UserSignUpParams(
           email: event.email,
@@ -23,9 +23,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           name: event.name
       ));
       res.fold(
-            (l) {
+            (failure) {
               //print('❌ ERROR BLOC : ${l.message}');
-              emit(AuthFailure(l.message));
+              emit(AuthFailure(failure.message));
         },
             (user) {
               //print('✅ SUCCESS BLOC : UID: $r');

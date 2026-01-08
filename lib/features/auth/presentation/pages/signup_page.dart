@@ -1,10 +1,13 @@
 import 'package:first_flutter_project/core/theme/app_pallete.dart';
+import 'package:first_flutter_project/core/utils/show_snackbar.dart';
 import 'package:first_flutter_project/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:first_flutter_project/features/auth/presentation/pages/login_page.dart';
 import 'package:first_flutter_project/features/auth/presentation/widgets/auth_field.dart';
 import 'package:first_flutter_project/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/common/widgets/loader.dart';
 
 
 class SignupPage extends StatefulWidget {
@@ -38,7 +41,21 @@ class _SignupPageState extends State<SignupPage> {
       appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Form(
+        child: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+
+          },
+          builder: (context, state) {
+            if (state is AuthFailure){
+              // I want a snack bar to show the error message
+              showSnackBar(context, state.message);
+
+            }
+            if(state is AuthLoading){
+              return const Loader();
+            }
+
+      return Form(
           key: formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,//Center vertically
@@ -103,7 +120,9 @@ class _SignupPageState extends State<SignupPage> {
           
             ],
           ),
-        ),
+        );
+  },
+),
       ),
     );
   }
